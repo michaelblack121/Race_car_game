@@ -1,6 +1,5 @@
 import pygame
 import random
-# hello!
 
 # Initialize Pygame
 pygame.init()
@@ -25,11 +24,10 @@ DARK_GREEN = (0, 255, 0)
 YELLOW = (255, 255, 0)
 PURPLE = (128, 0, 128)
 
-# Car settings
+# The settings of both cars
 car_width, car_height = 60, 120
 car_speed = 5
 
-# Enemy settings
 enemy_width, enemy_height = 60, 120
 enemy_speed = 5
 
@@ -38,7 +36,7 @@ font = pygame.font.Font(None, 74)
 button_font = pygame.font.Font(None, 50)
 
 # Winning score
-WINNING_SCORE = 100
+WINNING_SCORE = 50
 
 # Function to draw the player's car
 def draw_car(x, y):
@@ -144,7 +142,7 @@ def game_over():
         game_over_rect = game_over_text.get_rect(center=(WIDTH // 2, HEIGHT // 3))
         screen.blit(game_over_text, game_over_rect)
 
-        draw_button("Restart Game", WIDTH // 2 - 100, HEIGHT // 2, 200, 50, GREEN, DARK_GRAY, game_loop)
+        draw_button("Restart", WIDTH // 2 - 100, HEIGHT // 2, 200, 50, GREEN, DARK_GRAY, game_loop)
         draw_button("Main Menu", WIDTH // 2 - 100, HEIGHT // 2 + 70, 200, 50, GREEN, DARK_GRAY, main_menu)
 
         pygame.display.update()
@@ -181,6 +179,9 @@ def game_loop():
     score = 0
     crashed = False
 
+    line_offset = 0
+    line_speed = 1
+
     while not crashed:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -201,21 +202,27 @@ def game_loop():
         # Draw the road
         pygame.draw.rect(screen, BLACK, [WIDTH * 0.25, 0, WIDTH * 0.5, HEIGHT])
 
+
         # Draw the yellow dotted line
         line_width = 5
         line_length = 20
         gap_length = 20
         x_position = WIDTH * 0.5
-        y_position = 0
+        y_position = -line_length + line_offset
 
         while y_position < HEIGHT:
-            pygame.draw.line(screen, YELLOW, (x_position, y_position), (x_position, y_position + line_length), line_width)
+            pygame.draw.line(screen, YELLOW, (x_position, y_position), (x_position, y_position + line_length),
+                             line_width)
             y_position += line_length + gap_length
 
+        line_offset += line_speed
+        if line_offset >= line_length + gap_length:
+            line_offset = 0
+        line_speed += 0.002
         draw_enemy(enemy_start_x, enemy_start_y)
         enemy_start_y += enemy_speed
 
-        enemy_speed += .001
+        enemy_speed += .002
         draw_car(x, y)
 
         # Boundaries for the player's car
@@ -224,6 +231,7 @@ def game_loop():
         elif x > WIDTH * 0.75 - car_width:
             x = WIDTH * 0.75 - car_width
 
+# keeping the enemy car in the road
         if enemy_start_y > HEIGHT:
             enemy_start_y = 0 - enemy_height
             enemy_start_x = random.randrange(int(WIDTH * 0.25), int(WIDTH * 0.75 - enemy_width))
