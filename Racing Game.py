@@ -139,7 +139,7 @@ def game_over():
                 pygame.quit()
                 quit()
 
-        screen.fill(GRAY)
+        screen.fill(PINK)
         game_over_text = font.render("Game Over", True, BLACK)
         game_over_rect = game_over_text.get_rect(center=(WIDTH // 2, HEIGHT // 3))
         screen.blit(game_over_text, game_over_rect)
@@ -158,7 +158,7 @@ def you_win():
                 pygame.quit()
                 quit()
 
-        screen.fill(GRAY)
+        screen.fill(PINK)
         you_win_text = font.render("You Win!", True, BLACK)
         you_win_rect = you_win_text.get_rect(center=(WIDTH // 2, HEIGHT // 3))
         screen.blit(you_win_text, you_win_rect)
@@ -196,7 +196,7 @@ def game_loop():
 
         x += x_change
 
-        screen.fill(GRASS)  # Fill background with green
+        screen.fill(GREEN)  # Fill background with green
 
         # Draw the road
         pygame.draw.rect(screen, BLACK, [WIDTH * 0.25, 0, WIDTH * 0.5, HEIGHT])
