@@ -22,7 +22,7 @@ PINK = (255, 0, 255)
 GRAY = (169, 169, 169)
 DARK_GRAY = (105, 105, 105)
 
-#Font settings
+# Font settings
 font = pygame.font.Font(None, 74)
 button_font = pygame.font.Font(None, 50)
 
@@ -32,6 +32,8 @@ WINNING_SCORE = 50
 # Function to draw the player's car
 car_width, car_height = 60, 120
 car_speed = 5
+
+
 def draw_car(x, y):
     # Main body
     pygame.draw.rect(screen, ORANGE, [x, y, car_width, car_height])
@@ -55,10 +57,12 @@ def draw_car(x, y):
     # Rear right wheel
     pygame.draw.rect(screen, GRAY, [x + car_width, y + car_height - 30, wheel_width, wheel_height])
 
+
 # Function to draw the enemy car
 
 enemy_width, enemy_height = 60, 120
-enemy_speed = 5
+
+
 def draw_enemy(x, y):
     # Main body
     pygame.draw.rect(screen, BLUE, [x, y, enemy_width, enemy_height])
@@ -82,6 +86,7 @@ def draw_enemy(x, y):
     # Rear right wheel
     pygame.draw.rect(screen, GRAY, [x + enemy_width, y + enemy_height - 30, wheel_width, wheel_height])
 
+
 # Function to draw the button
 def draw_button(text, x, y, width, height, inactive_color, active_color, action=None):
     mouse = pygame.mouse.get_pos()
@@ -97,6 +102,7 @@ def draw_button(text, x, y, width, height, inactive_color, active_color, action=
     text_surf = button_font.render(text, True, BLACK)
     text_rect = text_surf.get_rect(center=(x + width // 2, y + height // 2))
     screen.blit(text_surf, text_rect)
+
 
 # Main menu loop with animation
 def main_menu():
@@ -124,6 +130,7 @@ def main_menu():
         if title_y <= HEIGHT // 3 - 10 or title_y >= HEIGHT // 3 + 10:
             direction *= -1
 
+
 # Game over screen
 def game_over():
     over = True
@@ -143,6 +150,7 @@ def game_over():
 
         pygame.display.update()
 
+
 # You win screen
 def you_win():
     win = True
@@ -161,6 +169,7 @@ def you_win():
         draw_button("Main Menu", WIDTH // 2 - 100, HEIGHT // 2 + 70, 200, 50, GREEN, DARK_GRAY, main_menu)
 
         pygame.display.update()
+
 
 # Main game loop
 def game_loop():
@@ -198,7 +207,6 @@ def game_loop():
         # Draw the road
         pygame.draw.rect(screen, BLACK, [WIDTH * 0.25, 0, WIDTH * 0.5, HEIGHT])
 
-
         # Draw the yellow dotted line
         line_width = 5
         line_length = 20
@@ -227,7 +235,7 @@ def game_loop():
         elif x > WIDTH * 0.75 - car_width:
             x = WIDTH * 0.75 - car_width
 
-# keeping the enemy car in the road
+        # keeping the enemy car in the road
         if enemy_start_y > HEIGHT:
             enemy_start_y = 0 - enemy_height
             enemy_start_x = random.randrange(int(WIDTH * 0.25), int(WIDTH * 0.75 - enemy_width))
@@ -236,7 +244,8 @@ def game_loop():
                 you_win()
 
         if y < enemy_start_y + enemy_height:
-            if x > enemy_start_x and x < enemy_start_x + enemy_width or x + car_width > enemy_start_x and x + car_width < enemy_start_x + enemy_width:
+            if (x > enemy_start_x and x < enemy_start_x + enemy_width) or \
+                    (x + car_width > enemy_start_x and x + car_width < enemy_start_x + enemy_width):
                 crashed = True
 
         # Display score
@@ -246,6 +255,7 @@ def game_loop():
         pygame.display.update()
 
     game_over()
+
 
 # Start the game
 main_menu()
