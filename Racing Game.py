@@ -33,6 +33,12 @@ WINNING_SCORE = 50
 car_width, car_height = 60, 120
 car_speed = 5
 
+# Game clock used to set frame rate, makes the game run more predictably independent of the hardware
+game_clock = pygame.time.Clock()
+
+# Sets the frame rate
+frame_rate = 60
+
 
 def draw_car(x, y):
     # Main body
@@ -253,6 +259,9 @@ def game_loop():
         screen.blit(score_text, (10, 10))
 
         pygame.display.update()
+        
+        # Uses the pygame clock to set the frame rate of the game
+        game_clock.tick(frame_rate)
 
     game_over()
 
