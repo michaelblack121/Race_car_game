@@ -13,25 +13,16 @@ pygame.display.set_caption("A CRAZY RACING EXPERIENCE")
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
-BLUE = (0, 0, 255)
+ORANGE = (255, 165, 0)
+YELLOW = (255, 255, 0)
 GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+PURPLE = (128, 0, 128)
+PINK = (255, 0, 255)
 GRAY = (169, 169, 169)
 DARK_GRAY = (105, 105, 105)
-ORANGE = (255, 165, 0)
-PINK = (255, 0, 255)
-GRASS = (245, 245, 245)
-DARK_GREEN = (0, 255, 0)
-YELLOW = (255, 255, 0)
-PURPLE = (128, 0, 128)
 
-# The settings of both cars
-car_width, car_height = 60, 120
-car_speed = 5
-
-enemy_width, enemy_height = 60, 120
-enemy_speed = 5
-
-# Font settings
+#Font settings
 font = pygame.font.Font(None, 74)
 button_font = pygame.font.Font(None, 50)
 
@@ -39,6 +30,8 @@ button_font = pygame.font.Font(None, 50)
 WINNING_SCORE = 50
 
 # Function to draw the player's car
+car_width, car_height = 60, 120
+car_speed = 5
 def draw_car(x, y):
     # Main body
     pygame.draw.rect(screen, ORANGE, [x, y, car_width, car_height])
@@ -63,6 +56,9 @@ def draw_car(x, y):
     pygame.draw.rect(screen, GRAY, [x + car_width, y + car_height - 30, wheel_width, wheel_height])
 
 # Function to draw the enemy car
+
+enemy_width, enemy_height = 60, 120
+enemy_speed = 5
 def draw_enemy(x, y):
     # Main body
     pygame.draw.rect(screen, BLUE, [x, y, enemy_width, enemy_height])
@@ -114,12 +110,12 @@ def main_menu():
                 pygame.quit()
                 quit()
 
-        screen.fill(GRASS)
+        screen.fill(GREEN)
         title = font.render("A CRAZY RACING EXPERIENCE", True, BLACK)
         title_rect = title.get_rect(center=(WIDTH // 2, title_y))
         screen.blit(title, title_rect)
 
-        draw_button("Start Game", WIDTH // 2 - 100, HEIGHT // 2, 200, 50, GREEN, DARK_GRAY, game_loop)
+        draw_button("Start Game", WIDTH // 2 - 100, HEIGHT // 2, 200, 50, YELLOW, DARK_GRAY, game_loop)
 
         pygame.display.update()
 
